@@ -52,7 +52,6 @@
     margin-top: 0.5rem;
   }
 
-  /* Lightbox fullscreen */
   .lightbox {
     display: none;
     position: fixed;
@@ -62,7 +61,7 @@
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.9);
-    overflow: auto; /* enable scrolling */
+    overflow: auto;
     padding: 2rem;
     box-sizing: border-box;
   }
@@ -71,7 +70,7 @@
     display: block;
     margin: 0 auto;
     cursor: default;
-    max-width: none; /* allow full zoom */
+    max-width: none;
     max-height: none;
     transform-origin: top left;
   }
@@ -93,7 +92,6 @@
     z-index: 10001;
   }
 
-  /* Floating zoom box */
   .zoom-box {
     position: fixed;
     top: 20px;
@@ -158,7 +156,6 @@
   </figure>
 </main>
 
-<!-- Lightbox -->
 <div id="lightbox" class="lightbox">
   <button class="close" onclick="closeLightbox()">×</button>
   <img id="lightbox-img" src="" alt="Zoomed view"/>
@@ -203,7 +200,6 @@
     zoomLevelDisplay.textContent = zoomLevel + "×";
   }
 
-  // Close when clicking outside image
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox) closeLightbox();
   });
@@ -211,3 +207,4 @@
 
 </body>
 </html>
+
