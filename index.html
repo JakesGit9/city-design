@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Image Gallery</title>
+  <!--
+    Replace `images/image1.jpg` etc. with your actual 2560x1440 (1440p) images.
+    This file is intentionally minimal — one image per line, with a title and caption.
+  -->
+  <style>
+    /* Very small amount of styling only to keep layout readable. */
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:#111;
+    }
+    .gallery{
+      max-width:100%;
+      padding:1rem;
+      box-sizing:border-box;
+    }
+    figure{
+      margin:0 0 2rem 0; /* space between each image/figure */
+    }
+    img{
+      display:block;
+      width:100%;           /* scales to viewport width */
+      max-width:2560px;     /* allows full-size 1440p images if available */
+      height:auto;
+      margin:0 auto;
+    }
+    h2{ margin:0.6rem 0 0.2rem 0; font-size:1.1rem; }
+    figcaption{ margin:0.15rem 0 0; font-size:0.95rem; opacity:0.9; }
+  </style>
+</head>
+<body>
+  <main class="gallery">
+
+    <figure>
+      <h2>Image One Title</h2>
+      <img src="images/image1.jpg" alt="Image one - replace with your 1440p image"/>
+      <figcaption>Caption for image one. Replace this with a short description.</figcaption>
+    </figure>
+
+    <figure>
+      <h2>Image Two Title</h2>
+      <img src="images/image2.jpg" alt="Image two - replace with your 1440p image"/>
+      <figcaption>Caption for image two. Replace this with a short description.</figcaption>
+    </figure>
+
+    <figure>
+      <h2>Image Three Title</h2>
+      <img src="images/image3.jpg" alt="Image three - replace with your 1440p image"/>
+      <figcaption>Caption for image three. Replace this with a short description.</figcaption>
+    </figure>
+
+    <figure>
+      <h2>Image Four Title</h2>
+      <img src="images/image4.jpg" alt="Image four - replace with your 1440p image"/>
+      <figcaption>Caption for image four. Replace this with a short description.</figcaption>
+    </figure>
+
+  </main>
+</body>
+</html>
