@@ -4,61 +4,84 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>City Design</title>
-  <!--
-    Replace `images/image1.jpg` etc. with your actual 2560x1440 (1440p) images.
-    This file is intentionally minimal — one image per line, with a title and caption.
-  -->
   <style>
-    /* Very small amount of styling only to keep layout readable. */
-    html,body{
-      height:100%;
-      margin:0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      color:#111;
+    /* Reset & base styles */
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #222;
+      background: #f8f9fa; /* light background for contrast */
+      line-height: 1.6;
     }
-    .gallery{
-      max-width:100%;
-      padding:1rem;
-      box-sizing:border-box;
+
+    main.gallery {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
     }
-    figure{
-      margin:0 0 2rem 0; /* space between each image/figure */
+
+    figure {
+      margin: 0 0 3rem 0;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 1rem;
     }
-    img{
-      display:block;
-      width:100%;           /* scales to viewport width */
-      max-width:2560px;     /* allows full-size 1440p images if available */
-      height:auto;
-      margin:0 auto;
+
+    h2 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.5rem;
+      color: #333;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 0.3rem;
     }
-    h2{ margin:0.6rem 0 0.2rem 0; font-size:1.1rem; }
-    figcaption{ margin:0.15rem 0 0; font-size:0.95rem; opacity:0.9; }
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: 2560px;
+      height: auto;
+      margin: 1rem auto;
+      border-radius: 6px;
+    }
+
+    figcaption {
+      font-size: 1rem;
+      color: #555;
+      margin-top: 0.5rem;
+    }
   </style>
 </head>
 <body>
   <main class="gallery">
 
     <figure>
-      <h2>City layout</h2>
+      <h2>City Layout</h2>
       <img src="image1.png" alt="Layout"/>
-      <figcaption>The starting layout of the city - in this one you can identify the artieriel road setup, 
-        which uses a heighrachy of roads (highway which connects to four lane then to two lane for buildings).</figcaption>
+      <figcaption>
+        The starting layout of the city — in this one you can identify the arterial road setup, 
+        which uses a hierarchy of roads (highway → four lane → two lane for buildings).
+      </figcaption>
     </figure>
 
     <figure>
       <h2>Completed Design</h2>
       <img src="image2.png" alt="Completed Design"/>
-      <figcaption>In this image you can see the other methods of road systems which were used to reduce tarffic (with the larger buildings for scale). </figcaption>
+      <figcaption>
+        This image shows the alternative road systems used to reduce traffic, with larger buildings 
+        included for scale.
+      </figcaption>
     </figure>
 
     <figure>
-      <h2>Labled</h2>
-      <img src="image3.png" alt="Labled"/>
-      <figcaption>The final product</figcaption>
+      <h2>Labeled</h2>
+      <img src="image3.png" alt="Labeled"/>
+      <figcaption>
+        The final product with labels for easier reference.
+      </figcaption>
     </figure>
 
   </main>
 </body>
 </html>
-
-
