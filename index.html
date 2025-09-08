@@ -36,23 +36,22 @@
       padding-bottom: 0.3rem;
     }
 
-    /* Gallery images appear smaller (zoomed-out effect) */
+    /* Normal images = more zoomed out */
     img {
       display: block;
-      width: 60%;       /* smaller than full width */
-      max-width: 1200px;
+      width: 80%;          /* show smaller than full width */
+      max-width: 1600px;   /* capped for "zoomed out" effect */
       height: auto;
       margin: 1rem auto;
       border-radius: 6px;
       cursor: zoom-in;
-      transition: transform 0.3s ease;
+      transition: transform 0.2s ease;
     }
 
     figcaption {
       font-size: 1rem;
       color: #555;
       margin-top: 0.5rem;
-      text-align: center;
     }
 
     /* Fullscreen overlay */
@@ -64,7 +63,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.95);
+      background: rgba(0,0,0,0.9);
       overflow: auto;
       padding: 2rem;
       box-sizing: border-box;
@@ -74,10 +73,10 @@
       display: block;
       margin: 0 auto;
       cursor: default;
-      width: auto;
+      max-width: none;
+      max-height: none;
+      width: 400%;   /* zoom 4× relative to viewport */
       height: auto;
-      transform: scale(4); /* 4x zoom */
-      transform-origin: top left; /* zoom from top-left corner */
     }
 
     .lightbox .close {
@@ -151,7 +150,7 @@
       lightboxImg.src = "";
     }
 
-    // Close when clicking background
+    // Close when clicking outside the zoomed image
     lightbox.addEventListener("click", (e) => {
       if (e.target === lightbox) {
         closeLightbox();
