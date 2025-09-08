@@ -36,20 +36,23 @@
       padding-bottom: 0.3rem;
     }
 
+    /* Gallery images appear smaller (zoomed-out effect) */
     img {
       display: block;
-      width: 100%;
-      max-width: 2560px;
+      width: 60%;       /* smaller than full width */
+      max-width: 1200px;
       height: auto;
       margin: 1rem auto;
       border-radius: 6px;
       cursor: zoom-in;
+      transition: transform 0.3s ease;
     }
 
     figcaption {
       font-size: 1rem;
       color: #555;
       margin-top: 0.5rem;
+      text-align: center;
     }
 
     /* Fullscreen overlay */
@@ -61,7 +64,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.95);
       overflow: auto;
       padding: 2rem;
       box-sizing: border-box;
@@ -69,9 +72,12 @@
 
     .lightbox img {
       display: block;
-      max-width: none; /* allow full-size image */
       margin: 0 auto;
       cursor: default;
+      width: auto;
+      height: auto;
+      transform: scale(4); /* 4x zoom */
+      transform-origin: top left; /* zoom from top-left corner */
     }
 
     .lightbox .close {
@@ -145,7 +151,7 @@
       lightboxImg.src = "";
     }
 
-    // Optional: close when clicking outside the image
+    // Close when clicking background
     lightbox.addEventListener("click", (e) => {
       if (e.target === lightbox) {
         closeLightbox();
