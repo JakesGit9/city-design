@@ -39,8 +39,8 @@
     /* Normal images = more zoomed out */
     img {
       display: block;
-      width: 80%;          /* show smaller than full width */
-      max-width: 1600px;   /* capped for "zoomed out" effect */
+      width: 80%;
+      max-width: 1600px;
       height: auto;
       margin: 1rem auto;
       border-radius: 6px;
@@ -75,8 +75,7 @@
       cursor: default;
       max-width: none;
       max-height: none;
-      width: 400%;   /* zoom 4× relative to viewport */
-      height: auto;
+      transform-origin: top left; /* zoom from top-left */
     }
 
     .lightbox .close {
@@ -93,6 +92,33 @@
       text-align: center;
       line-height: 40px;
       cursor: pointer;
+      z-index: 10001;
+    }
+
+    /* Zoom controls */
+    .zoom-controls {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10001;
+    }
+
+    .zoom-controls button {
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #fff;
+      color: #222;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .zoom-controls button:hover {
+      background: #e0e0e0;
     }
   </style>
 </head>
@@ -131,6 +157,10 @@
   <div id="lightbox" class="lightbox">
     <button class="close" onclick="closeLightbox()">×</button>
     <img id="lightbox-img" src="" alt="Zoomed view"/>
+    <div class="zoom-controls">
+      <button onclick="zoomOut()">−</button>
+      <button onclick="zoomIn()">+</button>
+    </div>
   </div>
 
   <script>
@@ -138,10 +168,14 @@
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
 
+    let zoomLevel = 1; // starting zoom multiplier
+
     images.forEach(img => {
       img.addEventListener("click", () => {
         lightbox.style.display = "block";
         lightboxImg.src = img.src;
+        zoomLevel = 1;
+        lightboxImg.style.transform = `scale(${zoomLevel})`;
       });
     });
 
@@ -150,7 +184,17 @@
       lightboxImg.src = "";
     }
 
-    // Close when clicking outside the zoomed image
+    function zoomIn() {
+      zoomLevel = Math.min(zoomLevel + 0.5, 8); // cap at 8x
+      lightboxImg.style.transform = `scale(${zoomLevel})`;
+    }
+
+    function zoomOut() {
+      zoomLevel = Math.max(zoomLevel - 0.5, 0.5); // min at 0.5x
+      lightboxImg.style.transform = `scale(${zoomLevel})`;
+    }
+
+    // Close when clicking outside image
     lightbox.addEventListener("click", (e) => {
       if (e.target === lightbox) {
         closeLightbox();
