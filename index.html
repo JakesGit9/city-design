@@ -1,205 +1,213 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>City Design</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      color: #222;
-      background: #f8f9fa;
-      line-height: 1.6;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>City Design</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #f8f9fa;
+    color: #222;
+    line-height: 1.6;
+  }
 
-    main.gallery {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
+  main.gallery {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
 
-    figure {
-      margin: 0 0 3rem 0;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      padding: 1rem;
-    }
+  figure {
+    margin: 0 0 3rem 0;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 1rem;
+  }
 
-    h2 {
-      margin: 0 0 0.5rem 0;
-      font-size: 1.5rem;
-      color: #333;
-      border-bottom: 2px solid #e0e0e0;
-      padding-bottom: 0.3rem;
-    }
+  h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    color: #333;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.3rem;
+  }
 
-    /* Normal images = more zoomed out */
-    img {
-      display: block;
-      width: 80%;
-      max-width: 1600px;
-      height: auto;
-      margin: 1rem auto;
-      border-radius: 6px;
-      cursor: zoom-in;
-      transition: transform 0.2s ease;
-    }
+  img {
+    display: block;
+    width: 80%;
+    max-width: 1600px;
+    margin: 1rem auto;
+    border-radius: 6px;
+    cursor: zoom-in;
+    transition: transform 0.2s ease;
+  }
 
-    figcaption {
-      font-size: 1rem;
-      color: #555;
-      margin-top: 0.5rem;
-    }
+  figcaption {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 0.5rem;
+  }
 
-    /* Fullscreen overlay */
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.9);
-      overflow: auto;
-      padding: 2rem;
-      box-sizing: border-box;
-    }
+  /* Lightbox fullscreen */
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    overflow: auto; /* enable scrolling */
+    padding: 2rem;
+    box-sizing: border-box;
+  }
 
-    .lightbox img {
-      display: block;
-      margin: 0 auto;
-      cursor: default;
-      max-width: none;
-      max-height: none;
-      transform-origin: top left; /* zoom from top-left */
-    }
+  .lightbox img {
+    display: block;
+    margin: 0 auto;
+    cursor: default;
+    max-width: none; /* allow full zoom */
+    max-height: none;
+    transform-origin: top left;
+  }
 
-    .lightbox .close {
-      position: fixed;
-      top: 15px;
-      right: 25px;
-      font-size: 2rem;
-      color: #fff;
-      background: rgba(0,0,0,0.6);
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      text-align: center;
-      line-height: 40px;
-      cursor: pointer;
-      z-index: 10001;
-    }
+  .lightbox .close {
+    position: fixed;
+    top: 15px;
+    right: 25px;
+    font-size: 2rem;
+    color: #fff;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    z-index: 10001;
+  }
 
-    /* Zoom controls */
-    .zoom-controls {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      z-index: 10001;
-    }
+  /* Floating zoom box */
+  .zoom-box {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(255,255,255,0.9);
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 10001;
+  }
 
-    .zoom-controls button {
-      font-size: 1.2rem;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 6px;
-      background: #fff;
-      color: #222;
-      cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    }
+  .zoom-box button {
+    font-size: 1rem;
+    padding: 0.3rem 0.5rem;
+    border: none;
+    border-radius: 4px;
+    background: #222;
+    color: #fff;
+    cursor: pointer;
+  }
 
-    .zoom-controls button:hover {
-      background: #e0e0e0;
-    }
-  </style>
+  .zoom-box button:hover {
+    background: #555;
+  }
+
+  .zoom-box span {
+    text-align: center;
+    font-weight: bold;
+  }
+</style>
 </head>
 <body>
-  <main class="gallery">
 
-    <figure>
-      <h2>City Layout</h2>
-      <img src="image1.png" alt="Layout"/>
-      <figcaption>
-        The starting layout of the city — in this one you can identify the arterial road setup, 
-        which uses a hierarchy of roads (highway → four lane → two lane for buildings).
-      </figcaption>
-    </figure>
+<main class="gallery">
+  <figure>
+    <h2>City Layout</h2>
+    <img src="image1.png" alt="Layout"/>
+    <figcaption>
+      The starting layout of the city — in this one you can identify the arterial road setup, 
+      which uses a hierarchy of roads (highway → four lane → two lane for buildings).
+    </figcaption>
+  </figure>
 
-    <figure>
-      <h2>Completed Design</h2>
-      <img src="image2.png" alt="Completed Design"/>
-      <figcaption>
-        This image shows the alternative road systems used to reduce traffic, with larger buildings 
-        included for scale.
-      </figcaption>
-    </figure>
+  <figure>
+    <h2>Completed Design</h2>
+    <img src="image2.png" alt="Completed Design"/>
+    <figcaption>
+      This image shows the alternative road systems used to reduce traffic, with larger buildings 
+      included for scale.
+    </figcaption>
+  </figure>
 
-    <figure>
-      <h2>Labeled</h2>
-      <img src="image3.png" alt="Labeled"/>
-      <figcaption>
-        The final product with labels for easier reference.
-      </figcaption>
-    </figure>
+  <figure>
+    <h2>Labeled</h2>
+    <img src="image3.png" alt="Labeled"/>
+    <figcaption>
+      The final product with labels for easier reference.
+    </figcaption>
+  </figure>
+</main>
 
-  </main>
-
-  <!-- Lightbox overlay -->
-  <div id="lightbox" class="lightbox">
-    <button class="close" onclick="closeLightbox()">×</button>
-    <img id="lightbox-img" src="" alt="Zoomed view"/>
-    <div class="zoom-controls">
-      <button onclick="zoomOut()">−</button>
-      <button onclick="zoomIn()">+</button>
-    </div>
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+  <button class="close" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="" alt="Zoomed view"/>
+  <div class="zoom-box">
+    <button onclick="zoomIn()">+</button>
+    <span id="zoom-level">1×</span>
+    <button onclick="zoomOut()">−</button>
   </div>
+</div>
 
-  <script>
-    const images = document.querySelectorAll("main.gallery img");
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightbox-img");
+<script>
+  const images = document.querySelectorAll("main.gallery img");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const zoomLevelDisplay = document.getElementById("zoom-level");
+  let zoomLevel = 1;
 
-    let zoomLevel = 1; // starting zoom multiplier
-
-    images.forEach(img => {
-      img.addEventListener("click", () => {
-        lightbox.style.display = "block";
-        lightboxImg.src = img.src;
-        zoomLevel = 1;
-        lightboxImg.style.transform = `scale(${zoomLevel})`;
-      });
-    });
-
-    function closeLightbox() {
-      lightbox.style.display = "none";
-      lightboxImg.src = "";
-    }
-
-    function zoomIn() {
-      zoomLevel = Math.min(zoomLevel + 0.5, 8); // cap at 8x
+  images.forEach(img => {
+    img.addEventListener("click", () => {
+      lightbox.style.display = "block";
+      lightboxImg.src = img.src;
+      zoomLevel = 1;
       lightboxImg.style.transform = `scale(${zoomLevel})`;
-    }
-
-    function zoomOut() {
-      zoomLevel = Math.max(zoomLevel - 0.5, 0.5); // min at 0.5x
-      lightboxImg.style.transform = `scale(${zoomLevel})`;
-    }
-
-    // Close when clicking outside image
-    lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox) {
-        closeLightbox();
-      }
+      zoomLevelDisplay.textContent = zoomLevel + "×";
     });
-  </script>
+  });
+
+  function closeLightbox() {
+    lightbox.style.display = "none";
+    lightboxImg.src = "";
+  }
+
+  function zoomIn() {
+    zoomLevel = Math.min(zoomLevel + 0.5, 8);
+    lightboxImg.style.transform = `scale(${zoomLevel})`;
+    zoomLevelDisplay.textContent = zoomLevel + "×";
+  }
+
+  function zoomOut() {
+    zoomLevel = Math.max(zoomLevel - 0.5, 0.5);
+    lightboxImg.style.transform = `scale(${zoomLevel})`;
+    zoomLevelDisplay.textContent = zoomLevel + "×";
+  }
+
+  // Close when clicking outside image
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+</script>
+
 </body>
 </html>
